@@ -15,16 +15,16 @@ describe('reversi', function() {
             expect(arr).to.deep.equal(expected);
         });
     });
-    // 
-    // describe('generateBoard', function() {
-    //     // TODO: write test for version with default " " value
-    //     it('generates a board with specified number of rows and columns', function() {
-    //         const board = rev.generateBoard(3, 3, " ");
-    //         const expected = [" ", " ", " ", " ", " ", " ", " ", " ", " ",];
-    //         expect(board).to.deep.equal(expected);
-    //     });
-    // });
-    //
+    
+    describe('generateBoard', function() {
+        // TODO: write test for version with default " " value
+        it('generates a board with specified number of rows and columns', function() {
+            const board = rev.generateBoard(3, 3, " ");
+            const expected = [" ", " ", " ", " ", " ", " ", " ", " ", " ",];
+            expect(board).to.deep.equal(expected);
+        });
+    });
+
     // describe('rowColToIndex', function() {
     //     it('translates a row and column to an index, assumes board is square', function() {
     //         const board = rev.generateBoard(3, 3, " ");
