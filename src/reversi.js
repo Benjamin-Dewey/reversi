@@ -18,5 +18,11 @@ module.exports = {
     const row = Math.floor(i / boardLength);
     const col = i - (row * boardLength);
     return { row, col };
+  },
+
+  setBoardCell: function(board, letter, row, col) {
+    const nextBoard = [...board];
+    nextBoard[this.rowColToIndex(nextBoard, row, col)] = letter;
+    return nextBoard;
   }
 };

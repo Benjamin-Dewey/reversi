@@ -45,22 +45,22 @@ describe('reversi', function() {
         });
     });
 
-    // describe('setBoardCell', function() {
-    //     it('sets the cell to the letter specified by row and col', function() {
-    //         let board = rev.generateBoard(3, 3, " ");
-    //         board = rev.setBoardCell(board, "X", 1, 1);
-    //         board = rev.setBoardCell(board, "O", 0, 2);
-    //         expect(board).to.deep.equal([" ", " ", "O", " ", "X", " ", " ", " ", " "]);
-    //     });
-    //
-    //     it('does not mutate original board passed in', function() {
-    //         const board = rev.generateBoard(3, 3, " ");
-    //         const updatedBoard = rev.setBoardCell(board, "X", 1, 1);
-    //         expect(updatedBoard).to.deep.equal([" ", " ", " ", " ", "X", " ", " ", " ", " "]);
-    //         expect(board).to.deep.equal([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
-    //     });
-    // });
-    //
+    describe('setBoardCell', function() {
+        it('sets the cell to the letter specified by row and col', function() {
+            let board = rev.generateBoard(3, 3, " ");
+            board = rev.setBoardCell(board, "X", 1, 1);
+            board = rev.setBoardCell(board, "O", 0, 2);
+            expect(board).to.deep.equal([" ", " ", "O", " ", "X", " ", " ", " ", " "]);
+        });
+
+        it('does not mutate original board passed in', function() {
+            const board = rev.generateBoard(3, 3, " ");
+            const updatedBoard = rev.setBoardCell(board, "X", 1, 1);
+            expect(updatedBoard).to.deep.equal([" ", " ", " ", " ", "X", " ", " ", " ", " "]);
+            expect(board).to.deep.equal([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
+        });
+    });
+
     // describe('algebraicToRowCol', function() {
     //     it('translates algebraic notation to row and col (as object keys and vals)', function() {
     //         expect(rev.algebraicToRowCol("B2")).to.deep.equal({"row": 1, "col": 1});
