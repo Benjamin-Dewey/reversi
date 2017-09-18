@@ -11,5 +11,12 @@ module.exports = {
 
   rowColToIndex: function(board, rowNumber, columnNumber) {
     return (Math.sqrt(board.length) * rowNumber) + columnNumber;
+  },
+
+  indexToRowCol: function(board, i) {
+    const boardLength = Math.sqrt(board.length);
+    const row = Math.floor(i / boardLength);
+    const col = i - (row * boardLength);
+    return { row, col };
   }
 };

@@ -35,16 +35,16 @@ describe('reversi', function() {
         });
     });
 
-    // describe('indexToRowCol', function() {
-    //     it('translates an index to a row and col (as an object)', function() {
-    //         const board = rev.generateBoard(3, 3, " ");
-    //         const rowCol1 = rev.indexToRowCol(board, 4);
-    //         const rowCol2 = rev.indexToRowCol(board, 2);
-    //         expect(rowCol1).to.deep.equal({"row": 1, "col": 1});
-    //         expect(rowCol2).to.deep.equal({"row": 0, "col": 2});
-    //     });
-    // });
-    //
+    describe('indexToRowCol', function() {
+        it('translates an index to a row and col (as an object)', function() {
+            const board = rev.generateBoard(3, 3, " ");
+            const rowCol1 = rev.indexToRowCol(board, 4);
+            const rowCol2 = rev.indexToRowCol(board, 2);
+            expect(rowCol1).to.deep.equal({"row": 1, "col": 1});
+            expect(rowCol2).to.deep.equal({"row": 0, "col": 2});
+        });
+    });
+
     // describe('setBoardCell', function() {
     //     it('sets the cell to the letter specified by row and col', function() {
     //         let board = rev.generateBoard(3, 3, " ");
