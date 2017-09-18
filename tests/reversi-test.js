@@ -15,7 +15,7 @@ describe('reversi', function() {
             expect(arr).to.deep.equal(expected);
         });
     });
-    
+
     describe('generateBoard', function() {
         // TODO: write test for version with default " " value
         it('generates a board with specified number of rows and columns', function() {
@@ -25,16 +25,16 @@ describe('reversi', function() {
         });
     });
 
-    // describe('rowColToIndex', function() {
-    //     it('translates a row and column to an index, assumes board is square', function() {
-    //         const board = rev.generateBoard(3, 3, " ");
-    //         const i = rev.rowColToIndex(board, 1, 1);
-    //         const j = rev.rowColToIndex(board, 0, 2);
-    //         expect(i).to.equal(4);
-    //         expect(j).to.equal(2);
-    //     });
-    // });
-    //
+    describe('rowColToIndex', function() {
+        it('translates a row and column to an index, assumes board is square', function() {
+            const board = rev.generateBoard(3, 3, " ");
+            const i = rev.rowColToIndex(board, 1, 1);
+            const j = rev.rowColToIndex(board, 0, 2);
+            expect(i).to.equal(4);
+            expect(j).to.equal(2);
+        });
+    });
+
     // describe('indexToRowCol', function() {
     //     it('translates an index to a row and col (as an object)', function() {
     //         const board = rev.generateBoard(3, 3, " ");
