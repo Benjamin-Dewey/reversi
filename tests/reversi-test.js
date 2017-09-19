@@ -119,17 +119,17 @@ describe('reversi', function() {
     });
 
 
-    // describe('boardToString', function() {
-    //     // TODO: change to regex to allow for flexible number of spaces
-    //     it('formats a board', function() {
-    //         let board = rev.generateBoard(3, 3, " ");
-    //         board = rev.placeLetters(board, 'X', "B2");
-    //         board = rev.placeLetters(board, 'O', "C1");
-		// 	const expected = "     A   B   C  \n   +---+---+---+\n 1 |   |   | O |\n   +---+---+---+\n 2 |   | X |   |\n   +---+---+---+\n 3 |   |   |   |\n   +---+---+---+\n";
-    //         expect(rev.boardToString(board)).to.equal(expected);
-    //     });
-    // });
-    //
+    describe('boardToString', function() {
+        // TODO: change to regex to allow for flexible number of spaces
+        it('formats a board', function() {
+            let board = rev.generateBoard(3, 3, " ");
+            board = rev.placeLetters(board, 'X', "B2");
+            board = rev.placeLetters(board, 'O', "C1");
+			const expected = "     A   B   C  \n   +---+---+---+\n 1 |   |   | O |\n   +---+---+---+\n 2 |   | X |   |\n   +---+---+---+\n 3 |   |   |   |\n   +---+---+---+\n";
+            expect(rev.boardToString(board)).to.equal(expected);
+        });
+    });
+
     // describe('isBoardFull', function() {
     //     it('returns true if there are no spaces left on the board', function() {
     //         let board = rev.generateBoard(3, 3, " ");

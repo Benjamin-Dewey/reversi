@@ -5,7 +5,7 @@ module.exports = {
     return new Array(n).fill(value);
   },
 
-  generateBoard: function(rows, columns, initialCellValue=" ") {
+  generateBoard: function(rows, columns, initialCellValue=' ') {
     return this.repeat(initialCellValue, rows * columns);
   },
 
@@ -78,5 +78,37 @@ module.exports = {
       const rowCol = this.algebraicToRowCol(move);
       return this.setBoardCell(nextBoard, letter, rowCol.row, rowCol.col);
     }, board);
+  },
+
+  boardToString: function(board) {
+
+    const boardLength = Math.sqrt(board.length);
+    let boardAsString = '  ';
+
+    for (let i = 0; i < boardLength; i++) {
+      boardAsString += '   ' + String.fromCharCode(i + 65);
+    }
+    boardAsString += '  \n';
+
+    let edge = '   ';
+    for (let i = 0; i < boardLength; i++) {
+      edge += '+---';
+    }
+    edge += '+\n';
+
+    let curRow = 1;
+
+    for (let i = 0; i < board.length; i++) {
+      if ((i % boardLength) === 0 ) {
+        boardAsString += edge;
+        boardAsString += ' ' + curRow + ' ';
+        curRow++;
+      }
+      boardAsString += `| ${board[i]} `;
+      if(((i + 1) % boardLength) === 0) { boardAsString += '|\n'; }
+    }
+
+    boardAsString += edge;
+    return boardAsString;
   }
 };
