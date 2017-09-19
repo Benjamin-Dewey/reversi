@@ -71,5 +71,12 @@ module.exports = {
       return undefined;
     }
     return undefined;
+  },
+
+  placeLetters: function(board, letter, ...algebraicNotation) {
+    return algebraicNotation.reduce((nextBoard, move) => {
+      const rowCol = this.algebraicToRowCol(move);
+      return this.setBoardCell(nextBoard, letter, rowCol.row, rowCol.col);
+    }, board);
   }
 };

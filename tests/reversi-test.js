@@ -87,38 +87,38 @@ describe('reversi', function() {
         });
     });
 
-    // describe('placeLetter', function() {
-    //     it('places a letter on a board based on algebraic notation move', function() {
-    //         let board = rev.generateBoard(3, 3, " ");
-    //         board = rev.placeLetters(board, 'X', "B2");
-    //         board = rev.placeLetters(board, 'O', "A3");
-    //         expect(board).to.deep.equal([" ", " ", " ", " ", "X", " ", "O", " ", " "]);
-    //     });
-    //
-    //     it('does not mutate original board passed in', function() {
-    //         const board = rev.generateBoard(3, 3, " ");
-    //         rev.placeLetters(board, 'X', "B2");
-    //         expect(board).to.deep.equal([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
-    //     });
-    // });
-    //
-    // describe('placeLetters', function() {
-    //     it('places a letter in multiples cells based on algebraic notation moves', function() {
-    //         const board = rev.generateBoard(4, 4, " ");
-    //         const updatedBoard = rev.placeLetters(board, 'X', "B3", "D4");
-    //
-    //         expect(updatedBoard).to.deep.equal([" ", " ", " ", " ", " ", " ", " ", " ", " ", "X", " ", " ", " ", " ", " ", "X"]);
-    //     });
-    //
-    //     it('does not mutate board passed in', function() {
-    //         const board = rev.generateBoard(4, 4, " ");
-    //         rev.placeLetters(board, 'X', "B3", "D4");
-    //
-    //         expect(board).to.deep.equal([" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "]);
-    //     });
-    // });
-    //
-    //
+    describe('placeLetter', function() {
+        it('places a letter on a board based on algebraic notation move', function() {
+            let board = rev.generateBoard(3, 3, " ");
+            board = rev.placeLetters(board, 'X', "B2");
+            board = rev.placeLetters(board, 'O', "A3");
+            expect(board).to.deep.equal([" ", " ", " ", " ", "X", " ", "O", " ", " "]);
+        });
+
+        it('does not mutate original board passed in', function() {
+            const board = rev.generateBoard(3, 3, " ");
+            rev.placeLetters(board, 'X', "B2");
+            expect(board).to.deep.equal([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
+        });
+    });
+
+    describe('placeLetters', function() {
+        it('places a letter in multiples cells based on algebraic notation moves', function() {
+            const board = rev.generateBoard(4, 4, " ");
+            const updatedBoard = rev.placeLetters(board, 'X', "B3", "D4");
+
+            expect(updatedBoard).to.deep.equal([" ", " ", " ", " ", " ", " ", " ", " ", " ", "X", " ", " ", " ", " ", " ", "X"]);
+        });
+
+        it('does not mutate board passed in', function() {
+            const board = rev.generateBoard(4, 4, " ");
+            rev.placeLetters(board, 'X', "B3", "D4");
+
+            expect(board).to.deep.equal([" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "]);
+        });
+    });
+
+
     // describe('boardToString', function() {
     //     // TODO: change to regex to allow for flexible number of spaces
     //     it('formats a board', function() {
