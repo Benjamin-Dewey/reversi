@@ -168,6 +168,15 @@ module.exports = {
         else { row += shift; }
       }
 
+      if (!rowColAreInBounds(row, col)) {
+        if (axisIsX) { col -= shift; }
+        else { row -= shift; }
+        index = this.rowColToIndex(board, row, col);
+        if (board[index] === enemyCell) {
+          cells = [];
+        }
+      }
+
       return cells;
     };
 
@@ -191,6 +200,15 @@ module.exports = {
         col += xShift;
       }
 
+      if (!rowColAreInBounds(row, col)) {
+        row -= yShift;
+        col -= xShift;
+        index = this.rowColToIndex(board, row, col);
+        if (board[index] === enemyCell) {
+          cells = [];
+        }
+      }
+
       return cells;
     };
 
@@ -203,8 +221,6 @@ module.exports = {
       getCellsForDiagonalShifts(-1, -1),
       getCellsForDiagonalShifts(1, 1),
       getCellsForDiagonalShifts(-1, 1)
-    ].reduce((cellsToFlip, cellGroup) => {
-      if (cellGroup.length > 0) { cellsToFlip.push(cellGroup); }
-    }, []);
+    ].reduce((cellsToFlip, cellGroup) => cellGroup.length > 0 ? [...cellsToFlip, cellGroup] : cellsToFlip, []);
   }
 };
