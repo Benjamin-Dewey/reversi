@@ -233,5 +233,10 @@ module.exports = {
         } else {return false;}
       } else {return false;}
     } else {return false;}
+  },
+
+  isValidMoveAlgebraicNotation: function(board, letter, algebraicNotation) {
+    const rowCol = this.algebraicToRowCol(algebraicNotation);
+    return this.isValidMove(board, letter, rowCol.row, rowCol.col);
   }
 };

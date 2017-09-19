@@ -218,27 +218,27 @@ describe('reversi', function() {
         });
     });
 
-    // describe('isValidMoveAlgebraicNotation', function() {
-    //     // TODO: invalid move because of no straight line
-    //     it('returns true if move is played into empty cell that is within the board\'s dimensions', function() {
-    //         let board = rev.generateBoard(3, 3, " ");
-    //         board = rev.placeLetters(board, 'X', "A1");
-    //         board = rev.placeLetters(board, 'O', "A2");
-    //         expect(rev.isValidMoveAlgebraicNotation(board, 'X', 'A3')).to.be.true;
-    //     });
-    //
-    //     it('returns false if move is out of bounds', function() {
-    //         const board = rev.generateBoard(3, 3, " ");
-    //         expect(rev.isValidMoveAlgebraicNotation(board, 'X', 'D5')).to.be.false;
-    //     });
-    //
-    //     it('returns false if move is played into occupied cell', function() {
-    //         let board = rev.generateBoard(3, 3, " ");
-    //         board = rev.placeLetters(board, 'X', "A3");
-    //         expect(rev.isValidMoveAlgebraicNotation(board, 'X', 'A3')).to.be.false;
-    //     });
-    // });
-    //
+    describe('isValidMoveAlgebraicNotation', function() {
+        // TODO: invalid move because of no straight line
+        it('returns true if move is played into empty cell that is within the board\'s dimensions', function() {
+            let board = rev.generateBoard(3, 3, " ");
+            board = rev.placeLetters(board, 'X', "A1");
+            board = rev.placeLetters(board, 'O', "A2");
+            expect(rev.isValidMoveAlgebraicNotation(board, 'X', 'A3')).to.be.true;
+        });
+
+        it('returns false if move is out of bounds', function() {
+            const board = rev.generateBoard(3, 3, " ");
+            expect(rev.isValidMoveAlgebraicNotation(board, 'X', 'D5')).to.be.false;
+        });
+
+        it('returns false if move is played into occupied cell', function() {
+            let board = rev.generateBoard(3, 3, " ");
+            board = rev.placeLetters(board, 'X', "A3");
+            expect(rev.isValidMoveAlgebraicNotation(board, 'X', 'A3')).to.be.false;
+        });
+    });
+
     // // TODO: more tests
     // describe('getValidMoves', function() {
     //     it('returns list of valid moves available for board and letter', function() {
