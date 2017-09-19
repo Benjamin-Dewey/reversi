@@ -130,37 +130,37 @@ describe('reversi', function() {
         });
     });
 
-    // describe('isBoardFull', function() {
-    //     it('returns true if there are no spaces left on the board', function() {
-    //         let board = rev.generateBoard(3, 3, " ");
-    //         board = rev.placeLetters(board, 'X', "A1");
-    //         board = rev.placeLetters(board, 'X', "A2");
-    //         board = rev.placeLetters(board, 'X', "A3");
-    //         board = rev.placeLetters(board, 'X', "B1");
-    //         board = rev.placeLetters(board, 'X', "B2");
-    //         board = rev.placeLetters(board, 'X', "B3");
-    //         board = rev.placeLetters(board, 'X', "C1");
-    //         board = rev.placeLetters(board, 'X', "C2");
-    //         board = rev.placeLetters(board, 'X', "C3");
-    //         expect(rev.isBoardFull(board)).to.be.true;
-    //     });
-    //
-    //     it('returns false if there are still empty cells left on the board', function() {
-    //         let board = rev.generateBoard(3, 3, " ");
-    //         expect(rev.isBoardFull(board)).to.be.false;
-    //
-    //         board = rev.placeLetters(board, 'X', "A2");
-    //         board = rev.placeLetters(board, 'X', "A3");
-    //         board = rev.placeLetters(board, 'X', "B1");
-    //         board = rev.placeLetters(board, 'X', "B2");
-    //         board = rev.placeLetters(board, 'X', "B3");
-    //         board = rev.placeLetters(board, 'X', "C1");
-    //         board = rev.placeLetters(board, 'X', "C2");
-    //         board = rev.placeLetters(board, 'X', "C3");
-    //         expect(rev.isBoardFull(board)).to.be.false;
-    //     });
-    // });
-    //
+    describe('isBoardFull', function() {
+        it('returns true if there are no spaces left on the board', function() {
+            let board = rev.generateBoard(3, 3, " ");
+            board = rev.placeLetters(board, 'X', "A1");
+            board = rev.placeLetters(board, 'X', "A2");
+            board = rev.placeLetters(board, 'X', "A3");
+            board = rev.placeLetters(board, 'X', "B1");
+            board = rev.placeLetters(board, 'X', "B2");
+            board = rev.placeLetters(board, 'X', "B3");
+            board = rev.placeLetters(board, 'X', "C1");
+            board = rev.placeLetters(board, 'X', "C2");
+            board = rev.placeLetters(board, 'X', "C3");
+            expect(rev.isBoardFull(board)).to.be.true;
+        });
+
+        it('returns false if there are still empty cells left on the board', function() {
+            let board = rev.generateBoard(3, 3, " ");
+            expect(rev.isBoardFull(board)).to.be.false;
+
+            board = rev.placeLetters(board, 'X', "A2");
+            board = rev.placeLetters(board, 'X', "A3");
+            board = rev.placeLetters(board, 'X', "B1");
+            board = rev.placeLetters(board, 'X', "B2");
+            board = rev.placeLetters(board, 'X', "B3");
+            board = rev.placeLetters(board, 'X', "C1");
+            board = rev.placeLetters(board, 'X', "C2");
+            board = rev.placeLetters(board, 'X', "C3");
+            expect(rev.isBoardFull(board)).to.be.false;
+        });
+    });
+
     // describe('flip', function() {
     //     // TODO: O -> X
     //     it('changes the piece in the cell specified to the opposite color (X to O or O to X)', function() {

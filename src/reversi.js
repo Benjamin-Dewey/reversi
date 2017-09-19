@@ -110,5 +110,9 @@ module.exports = {
 
     boardAsString += edge;
     return boardAsString;
+  },
+
+  isBoardFull: function(board) {
+    return !board.some(cell => cell === ' ');
   }
 };
