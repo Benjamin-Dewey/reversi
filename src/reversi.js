@@ -27,46 +27,43 @@ module.exports = {
   },
 
   algebraicToRowCol: function(algebraicNotation) {
-    const characters = algebraicNotation.split('');
-    const length = characters.length;
+    const getRowColFromChars = (chars) => {
+      return {
+        row: Number(chars[1]) - 1,
+        col: chars[0].toUpperCase().charCodeAt() - 65
+      };
+    };
 
-    let firstCharIsValid = false;
-    let secondCharIsValid = false;
-    let thirdCharIsValid = false;
-    const lengthIsValid = length > 1 && length < 4;
+    const chars = algebraicNotation.split('');
+    const length = chars.length;
 
-    if (lengthIsValid) {
-      firstCharIsValid = /[A-z]/.test(characters[0]);
+    if (length > 1 && length < 4) {
+      let firstCharIsValid = false;
+      let secondCharIsValid = false;
+      let thirdCharIsValid = false;
 
+      firstCharIsValid = /[A-z]/.test(chars[0]);
       if (firstCharIsValid) {
-
         if (length === 2) {
-
-          secondCharIsValid = /[1-9]/.test(characters[1])
-
+          secondCharIsValid = /[1-9]/.test(chars[1]);
           if (secondCharIsValid) {
-            return {
-              row: Number(characters[0]) - 1,
-              column: characters[1].toUpperCase() - 65
-            };
+            return getRowColFromChars(chars);
           }
-          return undefined
+          return undefined;
         }
         if (length === 3) {
-
-          secondCharIsValid = /[1-2]/.test(characters[1])
-
+          secondCharIsValid = /[1-2]/.test(chars[1]);
           if (secondCharIsValid) {
-
-            if (characters[1] === '1') {
-
-              thirdCharIsValid = /[0-9]/.test(characters[2])
+            if (chars[1] === '1') {
+              thirdCharIsValid = /[0-9]/.test(chars[2]);
             }
-
-            else if (characters[1] === '2') {
-
-              thirdCharIsValid = /[0-6]/.test(characters[2])
+            if (chars[1] === '2') {
+              thirdCharIsValid = /[0-6]/.test(chars[2]);
             }
+            if (thirdCharIsValid) {
+              return getRowColFromChars(chars);
+            }
+            return undefined;
           }
           return undefined;
         }

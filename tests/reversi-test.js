@@ -61,32 +61,32 @@ describe('reversi', function() {
         });
     });
 
-    // describe('algebraicToRowCol', function() {
-    //     it('translates algebraic notation to row and col (as object keys and vals)', function() {
-    //         expect(rev.algebraicToRowCol("B2")).to.deep.equal({"row": 1, "col": 1});
-    //         expect(rev.algebraicToRowCol("A3")).to.deep.equal({"row": 2, "col": 0});
-    //     });
-    //
-    //     it('returns undefined if the notation only contains a row', function() {
-    //         expect(rev.algebraicToRowCol("A")).to.be.undefined;
-    //     });
-    //
-    //     it('returns undefined if the notation only contains a column', function() {
-    //         expect(rev.algebraicToRowCol("2")).to.be.undefined;
-    //     });
-    //
-    //     it('returns undefined if the notation\'s row and column are transposed', function() {
-    //         expect(rev.algebraicToRowCol("2")).to.be.undefined;
-    //     });
-    //
-    //     it('returns undefined if the notation contains invalid characters', function() {
-    //         expect(rev.algebraicToRowCol(" ")).to.be.undefined;
-    //         expect(rev.algebraicToRowCol("A 2")).to.be.undefined;
-    //         expect(rev.algebraicToRowCol("A:2")).to.be.undefined;
-    //         expect(rev.algebraicToRowCol("**")).to.be.undefined;
-    //     });
-    // });
-    //
+    describe('algebraicToRowCol', function() {
+        it('translates algebraic notation to row and col (as object keys and vals)', function() {
+            expect(rev.algebraicToRowCol("B2")).to.deep.equal({"row": 1, "col": 1});
+            expect(rev.algebraicToRowCol("A3")).to.deep.equal({"row": 2, "col": 0});
+        });
+
+        it('returns undefined if the notation only contains a row', function() {
+            expect(rev.algebraicToRowCol("A")).to.be.undefined;
+        });
+
+        it('returns undefined if the notation only contains a column', function() {
+            expect(rev.algebraicToRowCol("2")).to.be.undefined;
+        });
+
+        it('returns undefined if the notation\'s row and column are transposed', function() {
+            expect(rev.algebraicToRowCol("2")).to.be.undefined;
+        });
+
+        it('returns undefined if the notation contains invalid characters', function() {
+            expect(rev.algebraicToRowCol(" ")).to.be.undefined;
+            expect(rev.algebraicToRowCol("A 2")).to.be.undefined;
+            expect(rev.algebraicToRowCol("A:2")).to.be.undefined;
+            expect(rev.algebraicToRowCol("**")).to.be.undefined;
+        });
+    });
+
     // describe('placeLetter', function() {
     //     it('places a letter on a board based on algebraic notation move', function() {
     //         let board = rev.generateBoard(3, 3, " ");
