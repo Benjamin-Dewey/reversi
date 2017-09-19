@@ -177,20 +177,20 @@ describe('reversi', function() {
         });
     });
 
-    // describe('flipCells', function() {
-    //     // TODO: O -> X
-    //     // TODO: empty cell
-    //     it('changes the pieces in the cells specified to the opposite color (X to O or O to X)', function() {
-    //         board = rev.generateBoard(4, 4, " ");
-    //         board = rev.placeLetters(board, 'X', "A1", "B1", "B2");
-    //         board = rev.flipCells(board, [[[0, 0], [0, 1]], [[1, 1]]]);
-    //         expect(board[0]).to.equal('O');
-    //         expect(board[1]).to.equal('O');
-    //         expect(board[5]).to.equal('O');
-    //     });
-    // });
-    //
-    //
+    describe('flipCells', function() {
+        // TODO: O -> X
+        // TODO: empty cell
+        it('changes the pieces in the cells specified to the opposite color (X to O or O to X)', function() {
+            let board = rev.generateBoard(4, 4, " ");
+            board = rev.placeLetters(board, 'X', "A1", "B1", "B2");
+            board = rev.flipCells(board, [[[0, 0], [0, 1]], [[1, 1]]]);
+            expect(board[0]).to.equal('O');
+            expect(board[1]).to.equal('O');
+            expect(board[5]).to.equal('O');
+        });
+    });
+
+
     // describe('isValidMove', function() {
     //     // TODO: check that move will flip other tiles
     //     it('returns true if move is played into empty cell that is within the board\'s dimensions and would flip at least one of the other player\'s pieces', function() {

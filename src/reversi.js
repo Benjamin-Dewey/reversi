@@ -124,5 +124,13 @@ module.exports = {
     } else {
       return board;
     }
+  },
+
+  flipCells: function(board, cellsToFlip) {
+    return cellsToFlip.reduce((nextBoard, cellGroup) => {
+      return cellGroup.reduce((nextBoard, rowCol) => {
+        return this.flip(nextBoard, rowCol[0], rowCol[1]);
+      }, nextBoard);
+    }, board);
   }
 };
