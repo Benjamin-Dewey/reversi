@@ -27,7 +27,7 @@ module.exports = {
   },
 
   algebraicToRowCol: function(algebraicNotation) {
-    const getRowColFromChars = (chars) => {
+    const getRowColFromChars = chars => {
       return {
         row: Number(chars[1]) - 1,
         col: chars[0].toUpperCase().charCodeAt() - 65
@@ -132,5 +132,79 @@ module.exports = {
         return this.flip(nextBoard, rowCol[0], rowCol[1]);
       }, nextBoard);
     }, board);
+  },
+
+  getCellsToFlip: function(board, lastRow, lastCol) {
+    const enemyCell = board[this.rowColToIndex(board, lastRow, lastCol)] === 'X' ? 'O' : 'X';
+
+    const rowColAreInBounds = (row, col) => {
+      return (row < board.length && row > -1) && (col < board.length && col > -1);
+    };
+
+    const getCellsForLinearShiftOnAxis = (shift, axis) => {
+      let cells = [];
+
+      let row, col, index;
+      const axisIsX = axis === 'x';
+      if (axisIsX) {
+        row = lastRow;
+        col = lastCol + shift;
+      } else {
+        row = lastRow + shift;
+        col = lastCol;
+      }
+
+      while (rowColAreInBounds(row, col)) {
+        index = this.rowColToIndex(board, row, col);
+        if (board[index] === enemyCell) {
+          cells.push([row, col]);
+        } else {
+          if (board[index] === ' ') {
+             cells = [];
+          }
+          break;
+        }
+        if (axisIsX) { col += shift; }
+        else { row += shift; }
+      }
+
+      return cells;
+    };
+
+    const getCellsForDiagonalShifts = (xShift, yShift) => {
+      let row = lastRow + yShift;
+      let col = lastCol + xShift;
+      let cells = [];
+      let index;
+
+      while (rowColAreInBounds(row, col)) {
+        index = this.rowColToIndex(board, row, col);
+        if (board[index] === enemyCell) {
+          cells.push([row, col]);
+        } else {
+          if (board[index] === ' ') {
+             cells = [];
+          }
+          break;
+        }
+        row += yShift;
+        col += xShift;
+      }
+
+      return cells;
+    };
+
+    return [
+      getCellsForLinearShiftOnAxis(1, 'x'),
+      getCellsForLinearShiftOnAxis(-1, 'x'),
+      getCellsForLinearShiftOnAxis(1, 'y'),
+      getCellsForLinearShiftOnAxis(-1, 'y'),
+      getCellsForDiagonalShifts(1, -1),
+      getCellsForDiagonalShifts(-1, -1),
+      getCellsForDiagonalShifts(1, 1),
+      getCellsForDiagonalShifts(-1, 1)
+    ].reduce((cellsToFlip, cellGroup) => {
+      if (cellGroup.length > 0) { cellsToFlip.push(cellGroup); }
+    }, []);
   }
 };

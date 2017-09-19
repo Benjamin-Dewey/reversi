@@ -299,47 +299,47 @@ describe('reversi', function() {
     //         expect(res).to.deep.include.members([[3, 3], [1, 2]]);
     //     });
     // });
-    //
-    // describe('getCellsToFlip', function() {
-    //     // TODO: test diagonals, horizontal, vertical, more than one cell, etc.
-    //     // TODO: the test for this should be flexible enough to handle different orderings
-    //     it('returns an empty list if no cells need to be flipped for this board and last move', function() {
-    //         let board = rev.generateBoard(4, 4, " ");
-    //         board = rev.placeLetters(board, 'O', 'A1', 'C1', 'A2', 'C2');
-    //         board = rev.placeLetters(board, 'X', 'B2', 'C2', 'B3', 'C3', 'C4');
-    //         board = rev.placeLetters(board, 'X', 'B1');
-    //         const res = rev.getCellsToFlip(board, 0, 1);
-    //         expect(res).to.deep.equal([]);
-    //     });
-    //     it('returns a list of groups of cells to flip based on last move', function() {
-    //         let board = rev.generateBoard(4, 4, " ");
-    //         board = rev.placeLetters(board, 'O', 'B3', 'C3', 'D2');
-    //         board = rev.placeLetters(board, 'X', 'A3', 'D1', 'D3');
-    //
-    //         // want this to fail? uncomment the following line:
-    //         // const res = rev.getCellsToFlip(board, 0, 3);
-    //         const res = rev.getCellsToFlip(board, 2, 3);
-    //
-    //         // there should be two groups, so check length:
-    //         // [ [ [ 1, 3 ] ], [ [ 2, 2 ], [ 2, 1 ] ] ]
-    //         expect(res.length).to.equal(2);
-    //
-    //         // since we don't know what order these groups will be in...
-    //         // we'll just make sure that each inner array is either 1 or 2
-    //         // elements long, and then test for membership
-    //         res.forEach((line) => {
-    //             expect(line).to.have.length.within(1, 2);
-    //             if(line.length === 1) {
-    //                 expect(line).to.deep.equal([[1, 3]]);
-    //             } else if(line.length === 2) {
-    //                 // expect(line).to.deep.include.members([[2, 1], [2, 2]]);
-    //                 expect(line).to.deep.include.members([[2, 1], [2, 2]]);
-    //             }
-    //         });
-    //     });
-    // });
-    //
-    //
+
+    describe('getCellsToFlip', function() {
+        // TODO: test diagonals, horizontal, vertical, more than one cell, etc.
+        // TODO: the test for this should be flexible enough to handle different orderings
+        it('returns an empty list if no cells need to be flipped for this board and last move', function() {
+            let board = rev.generateBoard(4, 4, " ");
+            board = rev.placeLetters(board, 'O', 'A1', 'C1', 'A2', 'C2');
+            board = rev.placeLetters(board, 'X', 'B2', 'C2', 'B3', 'C3', 'C4');
+            board = rev.placeLetters(board, 'X', 'B1');
+            const res = rev.getCellsToFlip(board, 0, 1);
+            expect(res).to.deep.equal([]);
+        });
+        it('returns a list of groups of cells to flip based on last move', function() {
+            let board = rev.generateBoard(4, 4, " ");
+            board = rev.placeLetters(board, 'O', 'B3', 'C3', 'D2');
+            board = rev.placeLetters(board, 'X', 'A3', 'D1', 'D3');
+
+            // want this to fail? uncomment the following line:
+            // const res = rev.getCellsToFlip(board, 0, 3);
+            const res = rev.getCellsToFlip(board, 2, 3);
+
+            // there should be two groups, so check length:
+            // [ [ [ 1, 3 ] ], [ [ 2, 2 ], [ 2, 1 ] ] ]
+            expect(res.length).to.equal(2);
+
+            // since we don't know what order these groups will be in...
+            // we'll just make sure that each inner array is either 1 or 2
+            // elements long, and then test for membership
+            res.forEach((line) => {
+                expect(line).to.have.length.within(1, 2);
+                if(line.length === 1) {
+                    expect(line).to.deep.equal([[1, 3]]);
+                } else if(line.length === 2) {
+                    // expect(line).to.deep.include.members([[2, 1], [2, 2]]);
+                    expect(line).to.deep.include.members([[2, 1], [2, 2]]);
+                }
+            });
+        });
+    });
+
+
     // describe('getLetterCounts', function() {
     //     // TODO: zero letters
     //     it('returns object containing counts of letters', function() {
