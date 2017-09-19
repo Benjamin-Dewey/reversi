@@ -222,5 +222,16 @@ module.exports = {
       getCellsForDiagonalShifts(1, 1),
       getCellsForDiagonalShifts(-1, 1)
     ].reduce((cellsToFlip, cellGroup) => cellGroup.length > 0 ? [...cellsToFlip, cellGroup] : cellsToFlip, []);
+  },
+
+  isValidMove: function(board, letter, row, col) {
+    if (board[this.rowColToIndex(board, row, col)] === ' ') {
+      if ((row < board.length && row > -1) && (col < board.length && col > -1)) {
+        const nextBoard = this.setBoardCell(board, letter, row, col);
+        if (this.getCellsToFlip(nextBoard, row, col).length > 0) {
+          return true;
+        } else {return false;}
+      } else {return false;}
+    } else {return false;}
   }
 };

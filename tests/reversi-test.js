@@ -191,33 +191,33 @@ describe('reversi', function() {
     });
 
 
-    // describe('isValidMove', function() {
-    //     // TODO: check that move will flip other tiles
-    //     it('returns true if move is played into empty cell that is within the board\'s dimensions and would flip at least one of the other player\'s pieces', function() {
-    //         let board = rev.generateBoard(3, 3, " ");
-    //         board = rev.placeLetters(board, 'X', "A1");
-    //         board = rev.placeLetters(board, 'O', "A2");
-    //         expect(rev.isValidMove(board, 'X', 2, 0)).to.be.true;
-    //     });
-    //     it('returns false if move does not flip at least one of the other player\'s pieces', function() {
-    //         let board = rev.generateBoard(3, 3, " ");
-    //         board = rev.placeLetters(board, 'X', "B1");
-    //         board = rev.placeLetters(board, 'O', "A2");
-    //         expect(rev.isValidMove(board, 'X', 2, 0)).to.be.false;
-    //     });
-    //
-    //     it('returns false if move is out of bounds', function() {
-    //         const board = rev.generateBoard(3, 3, " ");
-    //         expect(rev.isValidMove(board, 'X',3, 3)).to.be.false;
-    //     });
-    //
-    //     it('returns false if target square is not empty', function() {
-    //         let board = rev.generateBoard(3, 3, " ");
-    //         board = rev.placeLetters(board, 'O', "B2");
-    //         expect(rev.isValidMove(board, 'X',1, 1)).to.be.false;
-    //     });
-    // });
-    //
+    describe('isValidMove', function() {
+        // TODO: check that move will flip other tiles
+        it('returns true if move is played into empty cell that is within the board\'s dimensions and would flip at least one of the other player\'s pieces', function() {
+            let board = rev.generateBoard(3, 3, " ");
+            board = rev.placeLetters(board, 'X', "A1");
+            board = rev.placeLetters(board, 'O', "A2");
+            expect(rev.isValidMove(board, 'X', 2, 0)).to.be.true;
+        });
+        it('returns false if move does not flip at least one of the other player\'s pieces', function() {
+            let board = rev.generateBoard(3, 3, " ");
+            board = rev.placeLetters(board, 'X', "B1");
+            board = rev.placeLetters(board, 'O', "A2");
+            expect(rev.isValidMove(board, 'X', 2, 0)).to.be.false;
+        });
+
+        it('returns false if move is out of bounds', function() {
+            const board = rev.generateBoard(3, 3, " ");
+            expect(rev.isValidMove(board, 'X',3, 3)).to.be.false;
+        });
+
+        it('returns false if target square is not empty', function() {
+            let board = rev.generateBoard(3, 3, " ");
+            board = rev.placeLetters(board, 'O', "B2");
+            expect(rev.isValidMove(board, 'X',1, 1)).to.be.false;
+        });
+    });
+
     // describe('isValidMoveAlgebraicNotation', function() {
     //     // TODO: invalid move because of no straight line
     //     it('returns true if move is played into empty cell that is within the board\'s dimensions', function() {
