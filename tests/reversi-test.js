@@ -340,22 +340,22 @@ describe('reversi', function() {
     });
 
 
-    // describe('getLetterCounts', function() {
-    //     // TODO: zero letters
-    //     it('returns object containing counts of letters', function() {
-    //         let board = rev.generateBoard(3, 3, " ");
-    //         board = rev.placeLetters(board, 'X', "A1");
-    //         board = rev.placeLetters(board, 'X', "A3");
-    //         board = rev.placeLetters(board, 'O', "A2");
-    //         const counts = rev.getLetterCounts(board);
-    //         expect(counts['X']).to.equal(2);
-    //         expect(counts['O']).to.equal(1);
-    //     });
-    //
-    //     it('returns false if move is out of bounds', function() {
-    //         const board = rev.generateBoard(3, 3, " ");
-    //         expect(rev.isValidMoveAlgebraicNotation(board, 'X', 'D5')).to.be.false;
-    //     });
-    // });
+    describe('getLetterCounts', function() {
+        // TODO: zero letters
+        it('returns object containing counts of letters', function() {
+            let board = rev.generateBoard(3, 3, " ");
+            board = rev.placeLetters(board, 'X', "A1");
+            board = rev.placeLetters(board, 'X', "A3");
+            board = rev.placeLetters(board, 'O', "A2");
+            const counts = rev.getLetterCounts(board);
+            expect(counts['X']).to.equal(2);
+            expect(counts['O']).to.equal(1);
+        });
+
+        it('returns false if move is out of bounds', function() {
+            const board = rev.generateBoard(3, 3, " ");
+            expect(rev.isValidMoveAlgebraicNotation(board, 'X', 'D5')).to.be.false;
+        });
+    });
 
 });
