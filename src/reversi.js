@@ -24,5 +24,55 @@ module.exports = {
     const nextBoard = [...board];
     nextBoard[this.rowColToIndex(nextBoard, row, col)] = letter;
     return nextBoard;
+  },
+
+  algebraicToRowCol: function(algebraicNotation) {
+    const characters = algebraicNotation.split('');
+    const length = characters.length;
+
+    let firstCharIsValid = false;
+    let secondCharIsValid = false;
+    let thirdCharIsValid = false;
+    const lengthIsValid = length > 1 && length < 4;
+
+    if (lengthIsValid) {
+      firstCharIsValid = /[A-z]/.test(characters[0]);
+
+      if (firstCharIsValid) {
+
+        if (length === 2) {
+
+          secondCharIsValid = /[1-9]/.test(characters[1])
+
+          if (secondCharIsValid) {
+            return {
+              row: Number(characters[0]) - 1,
+              column: characters[1].toUpperCase() - 65
+            };
+          }
+          return undefined
+        }
+        if (length === 3) {
+
+          secondCharIsValid = /[1-2]/.test(characters[1])
+
+          if (secondCharIsValid) {
+
+            if (characters[1] === '1') {
+
+              thirdCharIsValid = /[0-9]/.test(characters[2])
+            }
+
+            else if (characters[1] === '2') {
+
+              thirdCharIsValid = /[0-6]/.test(characters[2])
+            }
+          }
+          return undefined;
+        }
+      }
+      return undefined;
+    }
+    return undefined;
   }
 };
