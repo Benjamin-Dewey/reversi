@@ -161,22 +161,22 @@ describe('reversi', function() {
         });
     });
 
-    // describe('flip', function() {
-    //     // TODO: O -> X
-    //     it('changes the piece in the cell specified to the opposite color (X to O or O to X)', function() {
-    //         board = rev.generateBoard(4, 4, " ");
-    //         board = rev.placeLetters(board, 'X', "A1");
-    //         board = rev.flip(board, 0, 0);
-    //         expect(board[0]).to.equal('O');
-    //     });
-    //
-    //     it('no operation if letter in cell is not X or O', function() {
-    //         board = rev.generateBoard(4, 4, " ");
-    //         board = rev.flip(board, 0, 0);
-    //         expect(board[0]).to.equal(' ');
-    //     });
-    // });
-    //
+    describe('flip', function() {
+        // TODO: O -> X
+        it('changes the piece in the cell specified to the opposite color (X to O or O to X)', function() {
+            let board = rev.generateBoard(4, 4, " ");
+            board = rev.placeLetters(board, 'X', "A1");
+            board = rev.flip(board, 0, 0);
+            expect(board[0]).to.equal('O');
+        });
+
+        it('no operation if letter in cell is not X or O', function() {
+            let board = rev.generateBoard(4, 4, " ");
+            board = rev.flip(board, 0, 0);
+            expect(board[0]).to.equal(' ');
+        });
+    });
+
     // describe('flipCells', function() {
     //     // TODO: O -> X
     //     // TODO: empty cell

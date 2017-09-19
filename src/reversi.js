@@ -114,5 +114,15 @@ module.exports = {
 
   isBoardFull: function(board) {
     return !board.some(cell => cell === ' ');
+  },
+
+  flip: function(board, row, col) {
+    if (board[this.rowColToIndex(board, row, col)] === 'X') {
+      return this.setBoardCell(board, 'O', row, col);
+    } else if (board[this.rowColToIndex(board, row, col)] === 'O') {
+      return this.setBoardCell(board, 'X', row, col);
+    } else {
+      return board;
+    }
   }
 };
