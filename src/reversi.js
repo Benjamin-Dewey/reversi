@@ -204,7 +204,7 @@ module.exports = {
       getCellsForDiagonalShifts(-1, -1),
       getCellsForDiagonalShifts(1, 1),
       getCellsForDiagonalShifts(-1, 1)
-    ].reduce((cellsToFlip, cellGroup) => cellGroup.length > 0 ? [...cellsToFlip, cellGroup] : cellsToFlip, []);
+    ].filter(cellGroup => cellGroup.length > 0);
   },
 
   isValidMove: function(board, letter, row, col) {
