@@ -77,7 +77,6 @@ module.exports = {
   },
 
   boardToString: function(board) {
-
     const boardLength = Math.sqrt(board.length);
     let boardAsString = '  ';
 
@@ -96,8 +95,8 @@ module.exports = {
 
     for (let i = 0; i < board.length; i++) {
       if ((i % boardLength) === 0 ) {
-        boardAsString += edge;
-        boardAsString += ' ' + curRow + ' ';
+        const extraSpace = curRow > 9 ? '' : ' ';
+        boardAsString += edge + ' ' + curRow + extraSpace;
         curRow++;
       }
       boardAsString += `| ${board[i]} `;
