@@ -239,66 +239,66 @@ describe('reversi', function() {
         });
     });
 
-    // // TODO: more tests
-    // describe('getValidMoves', function() {
-    //     it('returns list of valid moves available for board and letter', function() {
-    //         let board = rev.generateBoard(3, 3, " ");
-    //         board = rev.placeLetters(board, 'X', "A1");
-    //         board = rev.placeLetters(board, 'O', "A2");
-    //         const res = rev.getValidMoves(board, 'X');
-    //         // expect(res).to.deep.equal([[2, 0]]);
-    //         expect(res).to.deep.equal([[2, 0]]);
-    //     });
-    //     it('returns an empty list if no valid moves are available for board and letter', function() {
-    //         let board = rev.generateBoard(3, 3, " ");
-    //         board = rev.placeLetters(board, 'X', "A1");
-    //         board = rev.placeLetters(board, 'O', "A3");
-    //         const res = rev.getValidMoves(board, 'X');
-    //         // expect(res).to.deep.equal([[2, 0]]);
-    //         expect(res).to.deep.equal([]);
-    //     });
-    //     it('returns an empty list if no valid moves are available for board and letter', function() {
-    //         let board = rev.generateBoard(4, 4, " ");
-    //         board = rev.placeLetters(board, 'O', 'A1', 'C1', 'A2', 'C2');
-    //         board = rev.placeLetters(board, 'X', 'B2', 'C2', 'B3', 'C3', 'C4');
-    //         const res = rev.getValidMoves(board, 'X');
-    //         // expect(res).to.deep.equal([[2, 0]]);
-    //         expect(res).to.deep.equal([]);
-    //     });
-    //     it('returns a move that goes horizontally to the right', function() {
-    //         let board = rev.generateBoard(4, 4, " ");
-    //         board = rev.placeLetters(board, 'O', 'B2');
-    //         board = rev.placeLetters(board, 'X', 'A2');
-    //         const res = rev.getValidMoves(board, 'X');
-    //         expect(res).to.deep.equal([[1, 2]]);
-    //     });
-    //     it('returns a moves that goes vertically to the top', function() {
-    //         let board = rev.generateBoard(4, 4, " ");
-    //         board = rev.placeLetters(board, 'O', 'B3');
-    //         board = rev.placeLetters(board, 'O', 'B2');
-    //         board = rev.placeLetters(board, 'X', 'B1');
-    //         const res = rev.getValidMoves(board, 'X');
-    //         expect(res).to.deep.equal([[3, 1]]);
-    //     });
-    //     it('returns a move that goes diagonally to lower right', function() {
-    //         let board = rev.generateBoard(4, 4, " ");
-    //         board = rev.placeLetters(board, 'X', 'A1');
-    //         board = rev.placeLetters(board, 'O', 'B2');
-    //         board = rev.placeLetters(board, 'O', 'C3');
-    //         const res = rev.getValidMoves(board, 'X');
-    //         expect(res).to.deep.equal([[3, 3]]);
-    //     });
-    //
-    //     it('returns multiple valid moves', function() {
-    //         let board = rev.generateBoard(4, 4, " ");
-    //         board = rev.placeLetters(board, 'X', 'A1');
-    //         board = rev.placeLetters(board, 'O', 'B2');
-    //         board = rev.placeLetters(board, 'X', 'A2');
-    //         board = rev.placeLetters(board, 'O', 'C3');
-    //         const res = rev.getValidMoves(board, 'X');
-    //         expect(res).to.deep.include.members([[3, 3], [1, 2]]);
-    //     });
-    // });
+    // TODO: more tests
+    describe('getValidMoves', function() {
+        it('returns list of valid moves available for board and letter', function() {
+            let board = rev.generateBoard(3, 3, " ");
+            board = rev.placeLetters(board, 'X', "A1");
+            board = rev.placeLetters(board, 'O', "A2");
+            const res = rev.getValidMoves(board, 'X');
+            // expect(res).to.deep.equal([[2, 0]]);
+            expect(res).to.deep.equal([[2, 0]]);
+        });
+        it('***returns an empty list if no valid moves are available for board and letter', function() {
+            let board = rev.generateBoard(3, 3, " ");
+            board = rev.placeLetters(board, 'X', "A1");
+            board = rev.placeLetters(board, 'O', "A3");
+            const res = rev.getValidMoves(board, 'X');
+            // expect(res).to.deep.equal([[2, 0]]);
+            expect(res).to.deep.equal([]);
+        });
+        it('returns an empty list if no valid moves are available for board and letter', function() {
+            let board = rev.generateBoard(4, 4, " ");
+            board = rev.placeLetters(board, 'O', 'A1', 'C1', 'A2', 'C2');
+            board = rev.placeLetters(board, 'X', 'B2', 'C2', 'B3', 'C3', 'C4');
+            const res = rev.getValidMoves(board, 'X');
+            // expect(res).to.deep.equal([[2, 0]]);
+            expect(res).to.deep.equal([]);
+        });
+        it('returns a move that goes horizontally to the right', function() {
+            let board = rev.generateBoard(4, 4, " ");
+            board = rev.placeLetters(board, 'O', 'B2');
+            board = rev.placeLetters(board, 'X', 'A2');
+            const res = rev.getValidMoves(board, 'X');
+            expect(res).to.deep.equal([[1, 2]]);
+        });
+        it('returns a moves that goes vertically to the top', function() {
+            let board = rev.generateBoard(4, 4, " ");
+            board = rev.placeLetters(board, 'O', 'B3');
+            board = rev.placeLetters(board, 'O', 'B2');
+            board = rev.placeLetters(board, 'X', 'B1');
+            const res = rev.getValidMoves(board, 'X');
+            expect(res).to.deep.equal([[3, 1]]);
+        });
+        it('returns a move that goes diagonally to lower right', function() {
+            let board = rev.generateBoard(4, 4, " ");
+            board = rev.placeLetters(board, 'X', 'A1');
+            board = rev.placeLetters(board, 'O', 'B2');
+            board = rev.placeLetters(board, 'O', 'C3');
+            const res = rev.getValidMoves(board, 'X');
+            expect(res).to.deep.equal([[3, 3]]);
+        });
+
+        it('returns multiple valid moves', function() {
+            let board = rev.generateBoard(4, 4, " ");
+            board = rev.placeLetters(board, 'X', 'A1');
+            board = rev.placeLetters(board, 'O', 'B2');
+            board = rev.placeLetters(board, 'X', 'A2');
+            board = rev.placeLetters(board, 'O', 'C3');
+            const res = rev.getValidMoves(board, 'X');
+            expect(res).to.deep.include.members([[3, 3], [1, 2]]);
+        });
+    });
 
     describe('getCellsToFlip', function() {
         // TODO: test diagonals, horizontal, vertical, more than one cell, etc.

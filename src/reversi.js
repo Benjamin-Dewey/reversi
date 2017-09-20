@@ -49,7 +49,6 @@ module.exports = {
           if (secondCharIsValid) {
             return getRowColFromChars(chars);
           }
-          return undefined;
         }
         if (length === 3) {
           secondCharIsValid = /[1-2]/.test(chars[1]);
@@ -63,12 +62,9 @@ module.exports = {
             if (thirdCharIsValid) {
               return getRowColFromChars(chars);
             }
-            return undefined;
           }
-          return undefined;
         }
       }
-      return undefined;
     }
     return undefined;
   },
@@ -136,9 +132,10 @@ module.exports = {
 
   getCellsToFlip: function(board, lastRow, lastCol) {
     const enemyCell = board[this.rowColToIndex(board, lastRow, lastCol)] === 'X' ? 'O' : 'X';
+    const boardLength = Math.sqrt(board.length);
 
     const rowColAreInBounds = (row, col) => {
-      return (row < board.length && row > -1) && (col < board.length && col > -1);
+      return (row < boardLength && row > -1) && (col < boardLength && col > -1);
     };
 
     const getCellsForLinearShiftOnAxis = (shift, axis) => {
@@ -168,14 +165,7 @@ module.exports = {
         else { row += shift; }
       }
 
-      if (!rowColAreInBounds(row, col)) {
-        if (axisIsX) { col -= shift; }
-        else { row -= shift; }
-        index = this.rowColToIndex(board, row, col);
-        if (board[index] === enemyCell) {
-          cells = [];
-        }
-      }
+      if (!rowColAreInBounds(row, col)) {cells = [];}
 
       return cells;
     };
@@ -200,14 +190,7 @@ module.exports = {
         col += xShift;
       }
 
-      if (!rowColAreInBounds(row, col)) {
-        row -= yShift;
-        col -= xShift;
-        index = this.rowColToIndex(board, row, col);
-        if (board[index] === enemyCell) {
-          cells = [];
-        }
-      }
+      if (!rowColAreInBounds(row, col)) {cells = [];}
 
       return cells;
     };
@@ -225,14 +208,15 @@ module.exports = {
   },
 
   isValidMove: function(board, letter, row, col) {
-    if (board[this.rowColToIndex(board, row, col)] === ' ') {
-      if ((row < board.length && row > -1) && (col < board.length && col > -1)) {
+    if ((row < board.length && row > -1) && (col < board.length && col > -1)) {
+      if (board[this.rowColToIndex(board, row, col)] === ' ') {
         const nextBoard = this.setBoardCell(board, letter, row, col);
         if (this.getCellsToFlip(nextBoard, row, col).length > 0) {
           return true;
-        } else {return false;}
-      } else {return false;}
-    } else {return false;}
+        }
+      }
+    }
+    return false;
   },
 
   isValidMoveAlgebraicNotation: function(board, letter, algebraicNotation) {
@@ -244,5 +228,12 @@ module.exports = {
     const X = board.reduce((count, cell) => cell === 'X' ? ++count : count, 0);
     const O = board.reduce((count, cell) => cell === 'O' ? ++count : count, 0);
     return {X, O};
+  },
+
+  getValidMoves: function(board, letter) {
+    return board.reduce((validMoves, curVal, curIndex) => {
+      const rowCol = this.indexToRowCol(board, curIndex);
+      return this.isValidMove(board, letter, rowCol.row, rowCol.col) ? [...validMoves, [rowCol.row, rowCol.col]] : validMoves;
+    }, []);
   }
 };
