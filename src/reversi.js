@@ -225,8 +225,8 @@ module.exports = {
   },
 
   getLetterCounts: function(board) {
-    const X = board.reduce((count, cell) => cell === 'X' ? ++count : count, 0);
-    const O = board.reduce((count, cell) => cell === 'O' ? ++count : count, 0);
+    const X = board.reduce((count, cell) => cell === 'X' ? count + 1 : count, 0);
+    const O = board.reduce((count, cell) => cell === 'O' ? count + 1 : count, 0);
     return {X, O};
   },
 
