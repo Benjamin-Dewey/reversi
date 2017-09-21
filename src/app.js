@@ -15,6 +15,8 @@ const endReversi = (board, playerLetter) => {
   } else if (X !== O) { console.log('You lost!\n'); }
   else { console.log('Tie game!\n'); }
 
+  console.log('\n==================\n\n');
+
   process.exit();
 };
 
@@ -155,7 +157,7 @@ const announceScriptedMoves = (player, computer, playerLetter) => {
   if (computer.length > 0 || player.length > 0) {
     const computerLetter = playerLetter === 'X' ? 'O' : 'X';
 
-    console.log(`\n==================\n\nWelcome to Reversi.\n\nThe computer is ${computerLetter}.\nThe player is ${playerLetter}\n`);
+    console.log(`\n==================\n\nWelcome to Reversi.\n\nThe computer is ${computerLetter}.\nThe player is ${playerLetter}.\n`);
   }
   if (computer.length > 0) { console.log(`Computer will make the following moves ${computer}\n`); }
   if (player.length > 0) { console.log(`The player will make the following moves ${player}\n`); }
@@ -175,6 +177,11 @@ const playReversi = config => {
     const xMove = i < xMoves.length ? xMoves[i] : ' ';
     const oMove = i < oMoves.length ? oMoves[i] : ' ';
     orderedMoves.push({xMove, oMove});
+  }
+
+  if (orderedMoves.length === 0) {
+    const computerLetter = playerLetter === 'X' ? 'O' : 'X';
+    console.log(`\n==================\n\nWelcome to Reversi.\n\nThe computer is ${computerLetter}.\nThe player is ${playerLetter}.\n`);
   }
 
   let board = config.boardPreset.board;
