@@ -219,8 +219,12 @@ module.exports = {
   },
 
   isValidMoveAlgebraicNotation: function(board, letter, algebraicNotation) {
-    const { row, col } = this.algebraicToRowCol(algebraicNotation);
-    return this.isValidMove(board, letter, row, col);
+    const rowCol = this.algebraicToRowCol(algebraicNotation);
+    if (rowCol) {
+      const { row, col } = rowCol;
+      return this.isValidMove(board, letter, row, col);
+    }
+    return false;
   },
 
   getLetterCounts: function(board) {
