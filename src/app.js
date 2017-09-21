@@ -4,7 +4,7 @@ const reversi = require('./reversi.js');
 const readlineSync = require('readline-sync');
 const fs = require('fs');
 
-let passedMoves = 0;
+let consecutivePassedMoves = 0;
 
 const endReversi = (board, playerLetter) => {
   const { X, O } = reversi.getLetterCounts(board);
@@ -19,19 +19,19 @@ const endReversi = (board, playerLetter) => {
 };
 
 const passMove = (board, playerLetter) => {
-  passedMoves++;
-  if (passedMoves >= 2) {
+  consecutivePassedMoves++;
+  if (consecutivePassedMoves >= 2) {
     endReversi(board, playerLetter);
   }
 };
 
-const getConfigFromFile = file => {
+const getConfigFromFile = (file, callback) => {
   fs.readFile(file, 'utf8', (err, data) => {
-    if (!err) { // user provided a config file
-      return JSON.parse(data);
+    if (err) {
+      console.log(err);
+      process.exit();
     } else {
-      // there is an error
-      process.exit(1);
+      callback(JSON.parse(data));
     }
   });
 };
@@ -47,7 +47,7 @@ const getConfigFromUser = () => {
 
   const playerLetterIsInvalid = playerLetter => playerLetter !== 'X' && playerLetter !== 'O';
 
-  console.log('\nWelcome to Reversi.\n');
+  console.log('\n==================\n\nWelcome to Reversi.\n');
   let boardWidth;
   while (boardWidthIsInvalid(boardWidth)) {
     boardWidth = readlineSync.question('How wide should the board be? (even numbers between 4 and 26, inclusive)\n> ');
@@ -78,12 +78,12 @@ const getConfigFromUser = () => {
   };
 };
 
-const getConfig = () => {
+const getConfig = (callback) => {
   const configFile = process.argv[2];
   if (configFile) { // user may have provided a config file
-    return getConfigFromFile(configFile);
+    return getConfigFromFile(configFile, callback);
   } else { // ask the user for config info
-    return getConfigFromUser();
+    callback(getConfigFromUser());
   }
 };
 
@@ -96,6 +96,7 @@ const makeMove = (board, moveLetter, move) => {
   console.log(reversi.boardToString(nextBoard));
   console.log(`Score\n=====\nX: ${X}\nO: ${O}\n`);
 
+  consecutivePassedMoves = 0;
   return nextBoard;
 };
 
@@ -109,7 +110,7 @@ const playerMove = (board, playerLetter) => {
     if (reversi.isValidMoveAlgebraicNotation(board, playerLetter, move)) {
       return makeMove(board, playerLetter, reversi.algebraicToRowCol(move));
     } else {
-      console.log('\nINVALID MOVE. Your move should:\n* be in algebraic format\n* specify an existing empty cell\n* flip at atleast one of your oponent\'s pieces\n');
+      console.log('\nINVALID MOVE. Your move should:\n* be in algebraic format\n* specify an existing empty cell\n* flip at at least one of your oponent\'s pieces\n');
       return playerMove(board, playerLetter);
     }
   }
@@ -140,8 +141,8 @@ const scriptedMove = (board, moveLetter, move, playerLetter) => {
   else {
     const mover = isPlayerMove ? 'Player' : 'Computer';
     if (reversi.isValidMoveAlgebraicNotation(board, moveLetter, move)) {
-      readlineSync.question(`${mover} will move to ${move}. Press <Enter> to show the move.> `);
-      return makeMove(board, moveLetter, move);
+      readlineSync.question(`${mover} will move to ${move}. Press <Enter> to show the move.\n> `);
+      return makeMove(board, moveLetter, reversi.algebraicToRowCol(move));
     } else {
       readlineSync.question(`${mover}'s scripted move is invalid. Must make a different move instead.\nPress <Enter> to continue.\n> `);
       if (isPlayerMove) { return playerMove(board, playerLetter); }
@@ -150,15 +151,20 @@ const scriptedMove = (board, moveLetter, move, playerLetter) => {
   }
 };
 
-const announceScriptedMoves = (player, computer) => {
-  if (computer.length > 0) { console.log(`Computer will make the following moves ${computer}\n`);}
-  if (player.length > 0) { console.log(`The player will make the following moves ${player}\n`);}
+const announceScriptedMoves = (player, computer, playerLetter) => {
+  if (computer.length > 0 || player.length > 0) {
+    const computerLetter = playerLetter === 'X' ? 'O' : 'X';
+
+    console.log(`\n==================\n\nWelcome to Reversi.\n\nThe computer is ${computerLetter}.\nThe player is ${playerLetter}\n`);
+  }
+  if (computer.length > 0) { console.log(`Computer will make the following moves ${computer}\n`); }
+  if (player.length > 0) { console.log(`The player will make the following moves ${player}\n`); }
 };
 
 const playReversi = config => {
   const playerLetter = config.boardPreset.playerLetter;
   const { player, computer} = config.scriptedMoves;
-  announceScriptedMoves(player, computer);
+  announceScriptedMoves(player, computer, playerLetter);
 
   const xMoves = playerLetter === 'X' ? player : computer;
   const oMoves = playerLetter === 'O' ? player : computer;
@@ -166,8 +172,8 @@ const playReversi = config => {
 
   const orderedMoves = [];
   for (let i = 0; i < iterations; i++) {
-    const xMove = xMoves.length < iterations ? xMoves[i] : ' ';
-    const oMove = oMoves.length < iterations ? oMoves[i] : ' ';
+    const xMove = i < xMoves.length ? xMoves[i] : ' ';
+    const oMove = i < oMoves.length ? oMoves[i] : ' ';
     orderedMoves.push({xMove, oMove});
   }
 
@@ -193,6 +199,6 @@ const playReversi = config => {
   endReversi(board, playerLetter);
 };
 
-const run = () => playReversi(getConfig());
+const run = () => getConfig((config) => playReversi(config));
 
 run();
