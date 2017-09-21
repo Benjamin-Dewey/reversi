@@ -11,9 +11,9 @@ const endReversi = (board, playerLetter) => {
   console.log(`Game Over\n\nScore\n=====\nX: ${X}\nO: ${O}\n`);
 
   if ((playerLetter === 'X' && X > O) || (playerLetter === 'O' && O > X)) {
-    console.log('You won!');
-  } else if (X !== O) { console.log('You lost!'); }
-  else { console.log('Tie game!'); }
+    console.log('You won!\n');
+  } else if (X !== O) { console.log('You lost!\n'); }
+  else { console.log('Tie game!\n'); }
 
   process.exit();
 };
@@ -81,14 +81,16 @@ const getConfigFromUser = () => {
 const getConfig = () => {
   const configFile = process.argv[2];
   if (configFile) { // user may have provided a config file
-    getConfigFromFile(configFile);
+    return getConfigFromFile(configFile);
   } else { // ask the user for config info
-    getConfigFromUser();
+    return getConfigFromUser();
   }
 };
 
 const makeMove = (board, moveLetter, move) => {
-  const nextBoard = reversi.placeLetters(board, moveLetter, move);
+  const { row, col } = move;
+  let nextBoard = reversi.setBoardCell(board, moveLetter, row, col);
+  nextBoard = reversi.flipCells(nextBoard, reversi.getCellsToFlip(nextBoard, row, col));
   const { X, O } = reversi.getLetterCounts(nextBoard);
 
   console.log(reversi.boardToString(nextBoard));
@@ -103,18 +105,18 @@ const playerMove = (board, playerLetter) => {
     passMove(board, playerLetter);
     return board;
   } else {
-    const move = readlineSync('What\'s your move?\n');
+    const move = readlineSync.question('What\'s your move?\n');
     if (reversi.isValidMoveAlgebraicNotation(board, playerLetter, move)) {
-      return makeMove(board, playerLetter, move);
+      return makeMove(board, playerLetter, reversi.algebraicToRowCol(move));
     } else {
-      console.log('INVALID MOVE. Your move should:\n* be in algebraic format\n* specify an existing empty cell\n* flip at atleast one of your oponent\'s pieces\n');
+      console.log('\nINVALID MOVE. Your move should:\n* be in algebraic format\n* specify an existing empty cell\n* flip at atleast one of your oponent\'s pieces\n');
       return playerMove(board, playerLetter);
     }
   }
 };
 
 const computerMove = (board, playerLetter) => {
-  readlineSync('Press <ENTER> to show computer\'s move...\n');
+  readlineSync.question('Press <ENTER> to show computer\'s move...\n');
 
   const computerLetter = playerLetter === 'X' ? 'O' : 'X';
   const validMoves = reversi.getValidMoves(board, computerLetter);
@@ -124,8 +126,8 @@ const computerMove = (board, playerLetter) => {
     passMove(board, playerLetter);
     return board;
   } else {
-    const move = validMoves[Math.floor(Math.random() * validMoves.length)];
-    return makeMove(board, computerLetter, move);
+    const [row, col] = validMoves[Math.floor(Math.random() * validMoves.length)];
+    return makeMove(board, computerLetter, {row, col});
   }
 };
 
@@ -170,18 +172,25 @@ const playReversi = config => {
   }
 
   let board = config.boardPreset.board;
-  orderedMoves.foreach(({xMove, oMove}) => {
+
+  console.log(reversi.boardToString(board));
+
+  orderedMoves.forEach(({xMove, oMove}) => {
     board = scriptedMove(board, 'X', xMove, playerLetter);
     board = scriptedMove(board, 'O', oMove, playerLetter);
   });
 
-  const xMove = playerLetter === 'X' ? (board, playerLetter) => playerMove(board, playerLetter) : computerMove(board, playerLetter);
-  const oMove = playerLetter === 'O' ? (board, playerLetter) => playerMove(board, playerLetter) : computerMove(board, playerLetter);
+  const xMove = playerLetter === 'X' ?
+    (board, playerLetter) => playerMove(board, playerLetter) : (board, playerLetter) => computerMove(board, playerLetter);
+  const oMove = playerLetter === 'O' ?
+    (board, playerLetter) => playerMove(board, playerLetter) : (board, playerLetter) => computerMove(board, playerLetter);
 
   while (!reversi.isBoardFull(board)) {
-    xMove(board, playerLetter);
-    oMove(board, playerLetter);
+    board = xMove(board, playerLetter);
+    board = oMove(board, playerLetter);
   }
+
+  endReversi(board, playerLetter);
 };
 
 const run = () => playReversi(getConfig());
