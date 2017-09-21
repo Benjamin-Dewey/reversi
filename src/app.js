@@ -200,6 +200,7 @@ const playReversi = config => {
 
   while (!reversi.isBoardFull(board)) {
     board = xMove(board, playerLetter);
+    if (reversi.isBoardFull(board)) { break; }
     board = oMove(board, playerLetter);
   }
 
