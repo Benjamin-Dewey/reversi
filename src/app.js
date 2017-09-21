@@ -101,11 +101,11 @@ const makeMove = (board, moveLetter, move) => {
 
 const playerMove = (board, playerLetter) => {
   if (reversi.getValidMoves(board, playerLetter).length === 0) {
-    readlineSync.question('No valid moves available for you. Press <ENTER> to pass.\n');
+    readlineSync.question('No valid moves available for you. Press <ENTER> to pass.\n> ');
     passMove(board, playerLetter);
     return board;
   } else {
-    const move = readlineSync.question('What\'s your move?\n');
+    const move = readlineSync.question('What\'s your move?\n> ');
     if (reversi.isValidMoveAlgebraicNotation(board, playerLetter, move)) {
       return makeMove(board, playerLetter, reversi.algebraicToRowCol(move));
     } else {
@@ -116,13 +116,13 @@ const playerMove = (board, playerLetter) => {
 };
 
 const computerMove = (board, playerLetter) => {
-  readlineSync.question('Press <ENTER> to show computer\'s move...\n');
+  readlineSync.question('Press <ENTER> to show computer\'s move...\n> ');
 
   const computerLetter = playerLetter === 'X' ? 'O' : 'X';
   const validMoves = reversi.getValidMoves(board, computerLetter);
 
   if (validMoves.length === 0) {
-    readlineSync.question('Computer has no valid moves. Press <ENTER> to continue.\n');
+    readlineSync.question('Computer has no valid moves. Press <ENTER> to continue.\n> ');
     passMove(board, playerLetter);
     return board;
   } else {
@@ -140,10 +140,10 @@ const scriptedMove = (board, moveLetter, move, playerLetter) => {
   else {
     const mover = isPlayerMove ? 'Player' : 'Computer';
     if (reversi.isValidMoveAlgebraicNotation(board, moveLetter, move)) {
-      readlineSync.question(`${mover} will move to ${move}. Press <Enter> to show the move.`);
+      readlineSync.question(`${mover} will move to ${move}. Press <Enter> to show the move.> `);
       return makeMove(board, moveLetter, move);
     } else {
-      readlineSync.question(`${mover}'s scripted move is invalid. Must make a different move instead.\nPress <Enter> to continue.`);
+      readlineSync.question(`${mover}'s scripted move is invalid. Must make a different move instead.\nPress <Enter> to continue.\n> `);
       if (isPlayerMove) { return playerMove(board, playerLetter); }
       else { return computerMove(board, playerLetter); }
     }
