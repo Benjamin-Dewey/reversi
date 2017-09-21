@@ -4,6 +4,27 @@ const reversi = require('./reversi.js');
 const readlineSync = require('readline-sync');
 const fs = require('fs');
 
+let passedMoves = 0;
+
+const endReversi = (board, playerLetter) => {
+  const { X, O } = reversi.getLetterCounts(board);
+  console.log(`Game Over\n\nScore\n=====\nX: ${X}\nO: ${O}\n`);
+
+  if ((playerLetter === 'X' && X > O) || (playerLetter === 'O' && O > X)) {
+    console.log('You won!');
+  } else if (X !== O) { console.log('You lost!'); }
+  else { console.log('Tie game!'); }
+
+  process.exit();
+};
+
+const passMove = (board, playerLetter) => {
+  passedMoves++;
+  if (passedMoves >= 2) {
+    endReversi(board, playerLetter);
+  }
+};
+
 const getConfigFromFile = file => {
   fs.readFile(file, 'utf8', (err, data) => {
     if (!err) { // user provided a config file
@@ -66,20 +87,25 @@ const getConfig = () => {
   }
 };
 
+const makeMove = (board, moveLetter, move) => {
+  const nextBoard = reversi.placeLetters(board, moveLetter, move);
+  const { X, O } = reversi.getLetterCounts(nextBoard);
+
+  console.log(reversi.boardToString(nextBoard));
+  console.log(`Score\n=====\nX: ${X}\nO: ${O}\n`);
+
+  return nextBoard;
+};
+
 const playerMove = (board, playerLetter) => {
   if (reversi.getValidMoves(board, playerLetter).length === 0) {
-    readlineSync('No valid moves available for you. Press <ENTER> to pass.\n');
+    readlineSync.question('No valid moves available for you. Press <ENTER> to pass.\n');
+    passMove(board, playerLetter);
     return board;
   } else {
     const move = readlineSync('What\'s your move?\n');
     if (reversi.isValidMoveAlgebraicNotation(board, playerLetter, move)) {
-      const nextBoard = reversi.placeLetters(board, playerLetter, move);
-      const { X, O } = reversi.getLetterCounts(nextBoard);
-
-      console.log(reversi.boardToString(nextBoard));
-      console.log(`Score\n=====\nX: ${X}\nO: ${O}\n`);
-
-      return nextBoard;
+      return makeMove(board, playerLetter, move);
     } else {
       console.log('INVALID MOVE. Your move should:\n* be in algebraic format\n* specify an existing empty cell\n* flip at atleast one of your oponent\'s pieces\n');
       return playerMove(board, playerLetter);
@@ -94,17 +120,12 @@ const computerMove = (board, playerLetter) => {
   const validMoves = reversi.getValidMoves(board, computerLetter);
 
   if (validMoves.length === 0) {
-    readlineSync('Computer has no valid moves. Press <ENTER> to continue.\n');
+    readlineSync.question('Computer has no valid moves. Press <ENTER> to continue.\n');
+    passMove(board, playerLetter);
     return board;
   } else {
     const move = validMoves[Math.floor(Math.random() * validMoves.length)];
-    const nextBoard = reversi.placeLetters(board, computerLetter, move);
-    const { X, O } = reversi.getLetterCounts(nextBoard);
-
-    console.log(reversi.boardToString(nextBoard));
-    console.log(`Score\n=====\nX: ${X}\nO: ${O}\n`);
-
-    return nextBoard;
+    return makeMove(board, computerLetter, move);
   }
 };
 
@@ -112,12 +133,18 @@ const scriptedMove = (board, moveLetter, move, playerLetter) => {
   const isPlayerMove = moveLetter === playerLetter ? true : false;
   const isNotScriptedMove = move === ' ' ? true : false;
 
-  if (isNotScriptedMove && isPlayerMove) { playerMove(board, playerLetter);}
-  else if (isNotScriptedMove && !isPlayerMove) { computerMove(board, playerLetter);}
-  else if (isPlayerMove) { // scripted player move
-
-  } else { // scripted computer move
-
+  if (isNotScriptedMove && isPlayerMove) { return playerMove(board, playerLetter); }
+  else if (isNotScriptedMove && !isPlayerMove) { return computerMove(board, playerLetter); }
+  else {
+    const mover = isPlayerMove ? 'Player' : 'Computer';
+    if (reversi.isValidMoveAlgebraicNotation(board, moveLetter, move)) {
+      readlineSync.question(`${mover} will move to ${move}. Press <Enter> to show the move.`);
+      return makeMove(board, moveLetter, move);
+    } else {
+      readlineSync.question(`${mover}'s scripted move is invalid. Must make a different move instead.\nPress <Enter> to continue.`);
+      if (isPlayerMove) { return playerMove(board, playerLetter); }
+      else { return computerMove(board, playerLetter); }
+    }
   }
 };
 
@@ -145,11 +172,18 @@ const playReversi = config => {
   let board = config.boardPreset.board;
   orderedMoves.foreach(({xMove, oMove}) => {
     board = scriptedMove(board, 'X', xMove, playerLetter);
-    board = scriptedMove(board, 'O', oMove, playerLetter;
+    board = scriptedMove(board, 'O', oMove, playerLetter);
   });
 
+  const xMove = playerLetter === 'X' ? (board, playerLetter) => playerMove(board, playerLetter) : computerMove(board, playerLetter);
+  const oMove = playerLetter === 'O' ? (board, playerLetter) => playerMove(board, playerLetter) : computerMove(board, playerLetter);
+
+  while (!reversi.isBoardFull(board)) {
+    xMove(board, playerLetter);
+    oMove(board, playerLetter);
+  }
 };
 
-const runApp = () => {
-  playReversi(getConfig());
-};
+const run = () => playReversi(getConfig());
+
+run();
