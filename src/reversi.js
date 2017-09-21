@@ -219,8 +219,8 @@ module.exports = {
   },
 
   isValidMoveAlgebraicNotation: function(board, letter, algebraicNotation) {
-    const rowCol = this.algebraicToRowCol(algebraicNotation);
-    return this.isValidMove(board, letter, rowCol.row, rowCol.col);
+    const { row, col } = this.algebraicToRowCol(algebraicNotation);
+    return this.isValidMove(board, letter, row, col);
   },
 
   getLetterCounts: function(board) {
@@ -231,8 +231,8 @@ module.exports = {
 
   getValidMoves: function(board, letter) {
     return board.reduce((validMoves, curVal, curIndex) => {
-      const rowCol = this.indexToRowCol(board, curIndex);
-      return this.isValidMove(board, letter, rowCol.row, rowCol.col) ? [...validMoves, [rowCol.row, rowCol.col]] : validMoves;
+      const { row, col } = this.indexToRowCol(board, curIndex);
+      return this.isValidMove(board, letter, row, col) ? [...validMoves, [row, col]] : validMoves;
     }, []);
   }
 };
